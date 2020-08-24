@@ -1,12 +1,18 @@
 import React from 'react';
-import {View, Button, Text, StyleSheet} from 'react-native';
+import {View, Text, Button, StyleSheet, StatusBar} from 'react-native';
+import {useTheme} from '@react-navigation/native';
 
 const HomeScreen = ({navigation}) => {
+  const {colors} = useTheme();
+
+  const theme = useTheme();
+
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
+      <StatusBar barStyle={theme.dark ? 'light-content' : 'dark-content'} />
+      <Text style={{color: colors.text}}>Home Screen</Text>
       <Button
-        title="GoTo Details Screen"
+        title="Go to details screen"
         onPress={() => navigation.navigate('Details')}
       />
     </View>
@@ -19,6 +25,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
+    justifyContent: 'center',
+  },
+});

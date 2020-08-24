@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
+import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {
+  useTheme,
   Avatar,
   Title,
   Caption,
@@ -11,11 +11,16 @@ import {
   TouchableRipple,
   Switch,
 } from 'react-native-paper';
+import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
+
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export const DrawerContent = (props) => {
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-  const toggleTheme = () => setIsDarkTheme(!isDarkTheme);
+import {AuthContext} from '../components/context';
+
+export function DrawerContent(props) {
+  const paperTheme = useTheme();
+
+  const {signOut, toggleTheme} = React.useContext(AuthContext);
 
   return (
     <View style={{flex: 1}}>
@@ -29,9 +34,9 @@ export const DrawerContent = (props) => {
                 }}
                 size={50}
               />
-              <View style={{marginLeft: 15}}>
-                <Title style={styles.title}>Kazi Rahamatullah</Title>
-                <Caption style={styles.caption}>@rahmat058</Caption>
+              <View style={{marginLeft: 15, flexDirection: 'column'}}>
+                <Title style={styles.title}>John Doe</Title>
+                <Caption style={styles.caption}>@j_doe</Caption>
               </View>
             </View>
 
@@ -106,26 +111,27 @@ export const DrawerContent = (props) => {
               <View style={styles.preference}>
                 <Text>Dark Theme</Text>
                 <View pointerEvents="none">
-                  <Switch value={isDarkTheme} />
+                  <Switch value={paperTheme.dark} />
                 </View>
               </View>
             </TouchableRipple>
           </Drawer.Section>
         </View>
       </DrawerContentScrollView>
-
       <Drawer.Section style={styles.bottomDrawerSection}>
         <DrawerItem
           icon={({color, size}) => (
             <Icon name="exit-to-app" color={color} size={size} />
           )}
           label="Sign Out"
-          onPress={() => console.log('exit app')}
+          onPress={() => {
+            signOut();
+          }}
         />
       </Drawer.Section>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   drawerContent: {

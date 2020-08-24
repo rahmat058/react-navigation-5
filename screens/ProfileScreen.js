@@ -1,19 +1,19 @@
 import React from 'react';
 import {View, Button, Text, StyleSheet} from 'react-native';
 
-const HomeScreen = ({navigation}) => {
+const ProfileScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
+      <Text>Profile Screen</Text>
       <Button
-        title="GoTo Details Screen"
-        onPress={() => navigation.navigate('Details')}
+        title="Click here"
+        onPress={() => alert('Button Clicked')}
       />
     </View>
   );
 };
 
-export default HomeScreen;
+export default ProfileScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -22,3 +22,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   }
 })
+
